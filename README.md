@@ -7,7 +7,6 @@
 cursor用于cursor配置
 dapp-front-dev用于前端开发
 foundry-contract-dev未提前创建，用于合约构建、测试和部署
-
 ```
 
 ## 项目运行（code）
