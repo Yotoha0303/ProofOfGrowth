@@ -34,7 +34,7 @@ contract ProofOfGrowth is ERC721, Ownable {
     }
 
     function burn(uint256 tokenId) public {
-        require(ownerOf(tokenId) == msg.sender, "Not the owner");
+        require(_ownerOf(tokenId) == msg.sender, "Not the owner");
         _burn(tokenId);
         delete growthRecords[tokenId];
     }
