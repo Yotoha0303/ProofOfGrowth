@@ -9,39 +9,26 @@ dapp-front-dev用于前端开发
 foundry-contract-dev未提前创建，用于合约构建、测试和部署
 ```
 
-## 项目运行（code）
+## 项目运行
 ```
-forge init foundry-contract-dev
-cd foundry-contract-dev
-mkdir docs
-rm -rf src script/Counter.s.sol test/Counter.t.sol
-rm -rf foundry-contract-dev/.git
+cd dapp-front-dev
+
+npm run dev
 ```
 
-## 部署前
+## 技术栈
 ```
-forge build
-forge test
-forge coverage
+solidity 0.8.26
+openzeppelin v5
+foundry v5
+ethers v6
+react+vite+Tailwind CSS(待加入css)
 ```
 
-## 部署
+## 项目说明
 ```
-source .env
-
-forge script script/DeployProofOfGrowth.s.sol:DeployProofOfGrowth \
-  --rpc-url https://sepolia.infura.io/v3/YOUR_INFURA_ID \
-  --broadcast \
-  --private-key $DEPLOYER_PRIVATE_KEY \
-  --verify \
-  -vvvv
+基于ERC721实现dapp项目，用于成长记录
 ```
-其中，`DEPLOYER_PRIVATE_KEY`在`.env`中，无需使用dotenv，与toml同个目录下即可
 
-## 清除缓存
-```
-npm cache clean --force
-
-forge clean
-
-```
+## 项目图片
+![项目图片]()
