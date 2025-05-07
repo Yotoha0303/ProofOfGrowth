@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.26;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ProofOfGrowth is ERC721, Ownable {
+contract ProofOfGrowth is ERC721Enumerable, Ownable {
     struct GrowthRecord {
         string title;
         string description;
@@ -43,11 +43,9 @@ contract ProofOfGrowth is ERC721, Ownable {
         return _currentTokenId;
     }
 
-    function getRecord(uint256 tokenId)
-        external
-        view
-        returns (GrowthRecord memory)
-    {
+    function getRecord(
+        uint256 tokenId
+    ) external view returns (GrowthRecord memory) {
         require(_ownerOf(tokenId) != address(0), "Token does not exist");
         return growthRecords[tokenId];
     }

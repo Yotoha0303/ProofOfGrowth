@@ -44,7 +44,6 @@ contract ProofOfGrowthTest is Test {
 
     function test_RevertWhen_NonOwnerMints() public {
         vm.prank(user1);
-        vm.expectRevert("Ownable: caller is not the owner");
         vm.expectRevert(
             abi.encodeWithSelector(
                 Ownable.OwnableUnauthorizedAccount.selector,
