@@ -8,11 +8,13 @@ contract DeployProofOfGrowth is Script {
     function setUp() public {}
 
     function run() public {
-        // uint256 deployerKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
-        // vm.startBroadcast(deployerKey);
-        string memory privateKeyHex = vm.envString("DEPLOYER_PRIVATE_KEY");
-        uint256 privateKey = vm.parseUint(privateKeyHex);
-        vm.startBroadcast(privateKey);
+        // string memory privateKeyHex = vm.envString("DEPLOYER_PRIVATE_KEY");
+        // uint256 privateKey = vm.parseUint(privateKeyHex);
+        // vm.startBroadcast(privateKey);
+
+        uint256 deployerKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
+        vm.startBroadcast(deployerKey);
+
 
         ProofOfGrowth pog = new ProofOfGrowth();
         console.log("Deployed ProofOfGrowth at:", address(pog));

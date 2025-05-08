@@ -24,9 +24,29 @@ forge script script/DeployProofOfGrowth.s.sol:DeployProofOfGrowth \
   --private-key $DEPLOYER_PRIVATE_KEY \
   --verify \
   -vvvv
-```
-其中，`DEPLOYER_PRIVATE_KEY`在`.env`中，无需使用dotenv，与toml同个目录下即可
 
+//去除校验
+  forge script script/DeployProofOfGrowth.s.sol:DeployProofOfGrowth \
+  --rpc-url https://eth-sepolia.g.alchemy.com/v2/IYI7vfqc5egsDWgcIMDEKsNkpE5NzosH \
+  --broadcast \
+  --private-key $DEPLOYER_PRIVATE_KEY \
+  -vvvv
+
+//使用.env导入rpc
+forge script script/DeployProofOfGrowth.s.sol:DeployProofOfGrowth \
+  --rpc-url $RPC_URL \
+  --private-key $DEPLOYER_PRIVATE_KEY \
+  --broadcast \
+  --verify \
+  -vvvv
+```
+其中，`DEPLOYER_PRIVATE_KEY`在`.env`中，无需使用dotenv，与toml同个目录下即可。
+部署前，需要先编译和测试
+
+## 脚本写入合约地址
+```
+node scripts/export-address.js
+```
 ## 清除缓存
 ```
 npm cache clean --force
