@@ -5,6 +5,33 @@ import { getContract } from "../hooks/useContract";
 export default function RecordList({ signer, account }) {
   const [records, setRecords] = useState([]);
 
+  // 封装刷新记录的函数
+  async function fetchRecords() {
+    const contract = getContract(signer);
+    const balance = await contract.balanceOf(account);
+    const result = [];
+    if (balance.toString() === "0") {
+      setRecords([]);
+      return;
+    }
+    for (let i = 0; i < balance; i++) {
+      try {
+        const tokenId = await contract.tokenOfOwnerByIndex(account, i);
+        const rawRecord = await contract.getRecord(tokenId);
+        const record = {
+          title: rawRecord[0],
+          description: rawRecord[1],
+          category: rawRecord[2],
+          timestamp: Number(rawRecord[3])
+        }
+        result.push({ tokenId, ...record });
+      } catch (error) {
+        console.error("获取tokenId错误：", error);
+      }
+    }
+    setRecords(result);
+  }
+
   useEffect(() => {
     (async () => {
       const contract = getContract(signer);
@@ -35,6 +62,20 @@ export default function RecordList({ signer, account }) {
       setRecords(result);
     })();
   }, [account, signer]);
+
+  async function burnToken(tokenId) {
+    if (!window.confirm("确定删除吗？")) return;
+    try {
+      const contract = getContract(signer);
+      const tx = await contract.burn(tokenId);
+      await tx.wait();
+      alert("删除成功！");
+      // 重新拉取数据
+      fetchRecords();
+    } catch (err) {
+      alert("删除失败：" + (err?.reason || err?.message || err));
+    }
+  }
 
   return (
     <div
@@ -102,6 +143,22 @@ export default function RecordList({ signer, account }) {
             </div>
             <div style={{ color: "#bbb", fontSize: "0.85rem", marginTop: "6px" }}>
               Token ID: {rec.tokenId.toString()}
+              <button
+                style={{
+                  marginLeft: "16px",
+                  background: "#d7263d",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "6px",
+                  padding: "4px 12px",
+                  cursor: "pointer",
+                  fontSize: "0.95rem",
+                  transition: "background 0.2s"
+                }}
+                onClick={() => burnToken(rec.tokenId)}
+              >
+                删除
+              </button>
             </div>
           </div>
         ))
