@@ -8,7 +8,11 @@ export function getContract(signerOrProvider) {
 
   if (!contract.target) {
     console.error("合约实例化失败，可能是地址未传入或 signer/provider 异常");
-  } 
+  }
+
+  if (!import.meta.env.VITE_CONTRACT_ADDRESS) {
+    console.error("合约地址未设置，请检查 .env 文件");
+  }
   // else {
   //    //获取合约地址
   //   console.log(`contractAddress:${contract.target}`)
