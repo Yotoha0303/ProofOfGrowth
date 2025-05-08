@@ -51,7 +51,7 @@ npm run dev
 | 测试   | Foundry v5 / forge-std |
 | 构建   | Foundry / forge script |
 | 前端   | React + Vite + Ethers v6 |
-| 样式   | Tailwind CSS(待加入) |
+| 样式   | Tailwind CSS v4 |
 | 部署   | 合约：sepolia 测试网<br>前端：Vercel |
 | 自动化 | export-address.js（合约地址注入） |
 
