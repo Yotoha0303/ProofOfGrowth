@@ -69,3 +69,10 @@ npm run dev
 ## 项目图片
 **[项目地址](https://proof-of-growth.vercel.app/)**
 ![项目图片](https://github.com/Yotoha0303/ProofOfGrowth/blob/main/Image/front-dapp.png)
+
+## 📝 License
+MIT
+
+## 🤝 贡献指南
+欢迎提 Issue 或 PR，共同完善成长记录系统！
+
