@@ -1,10 +1,8 @@
-// src/App.jsx
 import { useState, useEffect } from "react";
 import WalletConnect from "./components/WalletConnect";
 import MintRecord from "./components/MintRecord";
 import RecordList from "./components/RecordList";
 import { getContract } from "./hooks/useContract";
-import { ethers } from "ethers";
 
 function App() {
   const [provider, setProvider] = useState(null);
@@ -26,46 +24,30 @@ function App() {
 
   return (
     <>
-    <WalletConnect setProvider={setProvider} setAccount={setAccount} />
-    <div className="p-4"
-    style={{
-      minHeight: "100vh",
-      width: "100vw",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "flex-start",
-      paddingTop: "50px", // 导航栏高度+间距
-      boxSizing: "border-box",
-      background: "#fff6f0"
-    }}>
-      <div
-        style={{
-          width: "100%",
-          textAlign: "center",
-          marginBottom: "32px",
-          background: "linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%)",
-          borderRadius: "16px",
-          boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-          padding: "24px 0"
-        }}
-      >
-        <h1
-          style={{
-            color: "#d7263d",
-            fontSize: "2.8rem",
-            fontWeight: "bold",
-            letterSpacing: "2px",
-            margin: 0,
-            textShadow: "1px 2px 8px #fff, 0 2px 8px #fcb69f"
-          }}
-        >
-          Proof of Growth
-        </h1>
+      <WalletConnect setProvider={setProvider} setAccount={setAccount} />
+      {/* 整体背景渐变 */}
+      <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 bg-gradient-to-br from-[#fff6f0] via-[#ffe3e3] to-[#fcb69f]">
+        {/* 内容卡片区 */}
+        <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 bg-gradient-to-br from-[#fff6f0] via-[#ffe3e3] to-[#fcb69f]">
+          {/* 标题区 */}
+          <div className="w-full max-w-3xl text-center mb-8 bg-white/90 rounded-2xl shadow-2xl py-8 px-4 backdrop-blur-sm">
+            <h1 className="text-[#d7263d] text-4xl md:text-5xl font-extrabold tracking-wide m-0 drop-shadow-[1px_2px_8px_#fff]">
+              Proof of Growth
+            </h1>
+          </div>
+          {/* 内容区 */}
+          <div className="w-full max-w-3xl flex flex-col gap-8">
+            {isOwner && signer && (
+              <div className="bg-white/90 rounded-xl shadow-lg p-6">
+                <MintRecord signer={signer} />
+              </div>
+            )}
+            <div className="bg-white/90 rounded-xl shadow-lg p-6">
+              <RecordList signer={signer} account={account} />
+            </div>
+          </div>
+        </div>
       </div>
-      {isOwner && signer && <MintRecord signer={signer} />}
-      {signer && <RecordList signer={signer} account={account} />}
-    </div>
     </>
   );
 }
