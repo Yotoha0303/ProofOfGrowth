@@ -55,7 +55,7 @@ npm run dev
 | 部署   | 合约：sepolia 测试网<br>前端：Vercel |
 | 自动化 | export-address.js（合约地址注入） |
 
-## ✨ 核心功能
+## 核心功能
 
 - ✅ 铸造成长记录 NFT（包含标题、描述、分类、时间戳）
 - ✅ 用户通过钱包连接，查看自己拥有的成长记录
@@ -71,9 +71,9 @@ npm run dev
 **[项目地址](https://proof-of-growth.vercel.app/)**
 ![项目图片](https://github.com/Yotoha0303/ProofOfGrowth/blob/main/Image/front-dapp.png)
 
-## 📝 License
+## License
 MIT
 
-## 🤝 贡献指南
+## 贡献指南
 欢迎提 Issue 或 PR，共同完善成长记录系统！
 
