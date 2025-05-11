@@ -3,12 +3,14 @@ import WalletConnect from "./components/WalletConnect";
 import MintRecord from "./components/MintRecord";
 import RecordList from "./components/RecordList";
 import { getContract } from "./hooks/useContract";
+import MintForm from "./components/MintForm";
 
 function App() {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [account, setAccount] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
+  const [contract, setContract] = useState(null);
 
   useEffect(() => {
     if (provider && account) {
@@ -16,6 +18,7 @@ function App() {
         const signer = await provider.getSigner();
         setSigner(signer);
         const contract = getContract(signer);
+        setContract(contract);
         const owner = await contract.owner();
         setIsOwner(owner.toLowerCase() === account.toLowerCase());
       })();
@@ -40,6 +43,7 @@ function App() {
             {isOwner && signer && (
               <div className="bg-white/90 rounded-xl shadow-lg p-6">
                 <MintRecord signer={signer} />
+                {/* <MintForm contract={contract} account={account} /> */}
               </div>
             )}
             <div className="bg-white/90 rounded-xl shadow-lg p-6">

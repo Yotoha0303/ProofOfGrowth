@@ -3,6 +3,7 @@ import { useState } from "react";
 import { getContract } from "../hooks/useContract";
 
 export default function MintRecord({ signer }) {
+
   const [form, setForm] = useState({
     title: "",
     description: "",

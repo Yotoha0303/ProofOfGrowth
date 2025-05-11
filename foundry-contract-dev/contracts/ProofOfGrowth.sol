@@ -14,6 +14,8 @@ contract ProofOfGrowth is ERC721Enumerable, Ownable {
     mapping(uint256 => GrowthRecord) public growthRecords;
     uint256 private _currentTokenId;
 
+    mapping(uint256 => string) private _tokenURIs;
+
     constructor() ERC721("ProofOfGrowth", "POG") Ownable(msg.sender) {}
 
     function mint(
@@ -30,6 +32,27 @@ contract ProofOfGrowth is ERC721Enumerable, Ownable {
             category: _category,
             timestamp: block.timestamp
         });
+        _currentTokenId++;
+    }
+
+    function mintWithURI(
+        address to,
+        string memory _title,
+        string memory _description,
+        string memory _category,
+        string memory _tokenURI
+    ) public onlyOwner {
+        uint256 tokenId = _currentTokenId;
+        _safeMint(to, tokenId);
+
+        growthRecords[tokenId] = GrowthRecord({
+            title: _title,
+            description: _description,
+            category: _category,
+            timestamp: block.timestamp
+        });
+
+        _setTokenURI(tokenId, _tokenURI);
         _currentTokenId++;
     }
 
@@ -52,6 +75,11 @@ contract ProofOfGrowth is ERC721Enumerable, Ownable {
 
     function getTokenURI(uint256 tokenId) public view returns (string memory) {
         require(_ownerOf(tokenId) != address(0), "Query for nonexistent token");
-        return ""; // 后续你可以接入动态服务或自建 API
+        return _tokenURIs[tokenId];
+    }
+
+    function _setTokenURI(uint256 tokenId, string memory uri) internal {
+        require(_ownerOf(tokenId) != address(0), "URI set of nonexistent token");
+        _tokenURIs[tokenId] = uri;
     }
 }

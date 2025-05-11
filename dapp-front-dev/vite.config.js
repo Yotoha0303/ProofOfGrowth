@@ -4,8 +4,17 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(),tailwindcss(),],
+  plugins: [react(), tailwindcss(),],
   define: {
     'process.env': process.env,
   },
+  // server: {
+  //   proxy: {
+  //     '/nft': {
+  //       target: 'https://api.nft.storage',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/nft/, ''),
+  //     },
+  //   },
+  // },
 })

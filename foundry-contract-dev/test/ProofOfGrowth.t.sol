@@ -69,4 +69,10 @@ contract ProofOfGrowthTest is Test {
         vm.expectRevert("Query for nonexistent token");
         pog.getTokenURI(999);
     }
+
+    function test_MintWithURI() public {
+        string memory ipfsURI = "ipfs://test-uri";
+        pog.mintWithURI(user1, "title", "desc", "cat", ipfsURI);
+        assertEq(pog.getTokenURI(0), ipfsURI);
+    }
 }
