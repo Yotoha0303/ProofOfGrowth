@@ -31,52 +31,53 @@ export default function RecordList({ signer, account }) {
     }
     setRecords(result);
   }
-
   useEffect(() => {
-    (async () => {
-      const contract = getContract(signer);
-      const balance = await contract.balanceOf(account);
-      const result = [];
-
-      // 如果账户没有代币，则跳过后续操作
-      if (balance.toString() === 0) {
-        console.log("Account does not hold any tokens.");
-        return;  // 或者返回，避免不必要的调用
-      }
-
-      for (let i = 0; i < balance; i++) {
-        try {
-          const tokenId = await contract.tokenOfOwnerByIndex(account, i);
-          // const rawRecord = await contract.getRecord(tokenId);
-          const record = await contract.getRecord(tokenId);
-          const uri = await contract.getTokenURI(tokenId);
-          let image = null;
-          // const record = {
-          //   title: rawRecord[0],
-          //   description: rawRecord[1],
-          //   category: rawRecord[2],
-          //   timestamp: Number(rawRecord[3])
-          // }
-
-          console.log(`record:${record}`)
-          // 使用公共 IPFS 网关解析 metadata.json
-          try {
-            const response = await fetch(`https://ipfs.io/ipfs/${uri.split("ipfs://")[1]}`);
-            const metadata = await response.json();
-            image = metadata.image?.replace("ipfs://", "https://ipfs.io/ipfs/");
-          } catch (e) {
-            console.warn("Metadata fetch failed:", e);
-          }
-
-          // result.push({ tokenId, ...record });
-          result.push({ tokenId: tokenId.toString(), ...record, image });
-        } catch (error) {
-          console.error("获取tokenId错误：", error);
-        }
-      }
-      setRecords(result);
-    })();
+    if (!account || !signer) return;
+    fetchRecords();
   }, [account, signer]);
+
+  // 加入图片版本（未完成）
+  // async function fetchRecords() {
+  //   try {
+  //     const contract = getContract(signer);
+  //     const balance = await contract.balanceOf(account);
+  //     const result = [];
+
+  //     for (let i = 0; i < balance; i++) {
+  //       try {
+  //         const tokenId = await contract.tokenOfOwnerByIndex(account, i);
+  //         const rawRecord = await contract.getRecord(tokenId);
+  //         const uri = await contract.getTokenURI(tokenId);
+
+  //         const metadataURL = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+  //         let metadata = {};
+  //         try {
+  //           const response = await fetch(metadataURL);
+  //           // console.log(`response:${response.image}`)
+  //           metadata = await response.json();
+  //         } catch (e) {
+  //           console.warn("IPFS metadata 获取失败：", e.message);
+  //         }
+
+  //         result.push({
+  //           tokenId: tokenId.toString(),
+  //           title: rawRecord[0],
+  //           description: rawRecord[1],
+  //           category: rawRecord[2],
+  //           timestamp: Number(rawRecord[3]),
+  //           image: metadata.image?.replace("ipfs://", "https://ipfs.io/ipfs/") || null,
+  //         });
+  //       } catch (err) {
+  //         console.error(`第 ${i} 个 token 处理失败：`, err.message);
+  //       }
+  //     }
+
+  //     setRecords(result);
+  //   } catch (e) {
+  //     console.error("获取合约数据失败：", e.message);
+  //   }
+  // }
+
 
   async function burnToken(tokenId) {
     if (!window.confirm("确定删除吗？")) return;
@@ -142,7 +143,7 @@ export default function RecordList({ signer, account }) {
             }}
           >
             {/* 图片 */}
-            {rec.image && <img src={rec.image} alt={rec.title} className="w-full mb-2 rounded" />}
+            {/* {rec.image && <img src={rec.image} alt={rec.title} className="w-full mb-2 rounded" />} */}
             {/* 标题 */}
             <div style={{ fontWeight: "bold", fontSize: "1.2rem", color: "#d7263d" }}>
               {rec.title}

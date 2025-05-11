@@ -42,8 +42,8 @@ function App() {
           <div className="w-full max-w-3xl flex flex-col gap-8">
             {isOwner && signer && (
               <div className="bg-white/90 rounded-xl shadow-lg p-6">
-                <MintRecord signer={signer} />
-                {/* <MintForm contract={contract} account={account} /> */}
+                {/* <MintRecord signer={signer} /> */}
+                <MintForm contract={contract} account={account} />
               </div>
             )}
             <div className="bg-white/90 rounded-xl shadow-lg p-6">

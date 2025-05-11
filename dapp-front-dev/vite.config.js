@@ -8,13 +8,4 @@ export default defineConfig({
   define: {
     'process.env': process.env,
   },
-  // server: {
-  //   proxy: {
-  //     '/nft': {
-  //       target: 'https://api.nft.storage',
-  //       changeOrigin: true,
-  //       rewrite: (path) => path.replace(/^\/nft/, ''),
-  //     },
-  //   },
-  // },
 })

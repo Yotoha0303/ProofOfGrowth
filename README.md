@@ -67,6 +67,11 @@ npm run dev
 
 ---
 
+## 扩展功能
+-  铸造成长记录 NFT（包含标题、描述、分类、时间戳,新增图片）
+-  成长记录导出（如pdf、Json）
+-  公共档案页，可查看他人的成长记录
+
 ## 项目图片
 **[项目地址](https://proof-of-growth.vercel.app/)**
 ![项目图片](https://github.com/Yotoha0303/ProofOfGrowth/blob/main/Image/front-dapp.png)
